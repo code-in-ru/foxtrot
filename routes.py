@@ -23,19 +23,28 @@ def orders(method=None):
     return {"name": ["apples, oranges"]}\
 
 
+
 @webapp.route("/addorder", methods=["GET", "POST"])
 def add_order():
     form = AddOrderForm()
     if form.validate_on_submit():
-        with sqlite3.connect("data/rosatom.sqlite") as conn:
+        with sqlite3.connect("data/rosatom") as conn:
             cursor = conn.cursor()
             cursor.execute("""INSERT INTO tasks (author, title, type, description)
             VALUES (?, ?, ?, ?);""", (form.author.data, form.title.data, form.task_type.data, form.description.data))
             task_id = cursor.lastrowid
             conn.commit()
             flash("Task have id={0}".format(task_id))
-        return redirect("/")
+        return redirect("/tasks")
     return render_template("add_order.html", title="Добавление ордера", form=form)
+
+
+@webapp.route('/list-orders', methods=['GET', 'POST'])
+def show_tasks():
+    with sqlite3.connect("data/rosatom") as conn:
+        cursor = conn.cursor()
+        result = cursor.execute("""SELECT * from tasks WHERE state != 3""").fetchall()
+        return render_template('tasks.html', title='Распоряжения', post=result)
 
 
 @webapp.route("/todo", methods=["GET"])
