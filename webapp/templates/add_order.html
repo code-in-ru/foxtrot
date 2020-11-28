@@ -1,33 +1,39 @@
 {% extends "base.html" %}
-
+<link href="{{ url_for("static", filename="css/main.css") }}" rel="stylesheet">
 {% block content %}
-    <h1>Черновик подачи заявки</h1>
-    <form action="" method="post" novalidate>
+      <h1>Распорядиться</h1>
+<div id="wrapper">
+<form id="signin" method="post" action="" autocomplete="off" novalidate>
         {{ form.hidden_tag() }}
+
+
         <p>
-            {{ form.author.label }}<br>
-            {{ form.author(size=32) }}
-        </p>
+            {{ form.author(size=32, id='user') }}</p>
         <p>
-            {{ form.location.label }}<br>
-            {{ form.location(size=32) }}
-        </p>
-        <p>
-            {{ form.title.label }}<br>
-            {{ form.title(size=32) }}
-        </p>
-        <p>
-            {{ form.task_type.label }}<br>
-            {{ form.task_type(size=3) }}
-        </p>
-        <p>
-            {{ form.due_date.label }}<br>
-            {{ form.due_date(size=32) }}
-        </p>
-        <p>
-            {{ form.description.label }}<br>
-            {{ form.description(size=32) }}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+            {{ form.location(size=32, id='user') }}</p>
+<p>
+            {{ form.title(size=32, id='user') }}</p>
+<p>
+            {{ form.task_type(size=3, id='user') }}</p>
+<p>
+
+            {{ form.due_date(size=32, id='user') }}</p>
+
+<p>
+            {{ form.description(size=32, id='user') }}</p>
+<p>
+        {{ form.submit(size=10, type='submit') }}</p>
+</form>
+</div>
+{#  <h1>Распорядиться</h1>#}
+{#<div id="wrapper">#}
+{#	<form id="signin" method="post" action="" autocomplete="off">#}
+{#		<input type="text" id="user" name="author" placeholder="author" />#}
+{#        <input type="text" id="user" name="title" placeholder="title" />#}
+{#        <input type="text" id="user" name="task_type" placeholder="task type" />#}
+{#        <input type="text" id="user" name="due_data" placeholder="due data" />#}
+{#        <input type="text" id="user" name="description" placeholder="description" />#}
+{#		<button type="submit">&#xf0da;</button>#}
+{#	</form>#}
+{#</div>#}
 {% endblock %}
