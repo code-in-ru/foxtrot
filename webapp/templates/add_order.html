@@ -8,19 +8,18 @@
 
 
         <p>
-            {{ form.author(size=32, id='user') }}</p>
-        <p>
-            {{ form.location(size=32, id='user') }}</p>
-<p>
-            {{ form.title(size=32, id='user') }}</p>
-<p>
-            {{ form.task_type(size=3, id='user') }}</p>
-<p>
-
-            {{ form.due_date(size=32, id='user') }}</p>
+            {{ form.author(size=32, id='user', placeholder='Автор') }}</p>
 
 <p>
-            {{ form.description(size=32, id='user') }}</p>
+            {{ form.title(size=32, id='user', placeholder='Заголовок') }}</p>
+<p>
+            {{ form.task_type(size=3, id='user', placeholder='Тип распоряжения') }}</p>
+<p>
+
+            {{ form.due_date(size=32, id='user', placeholder='Срок выполнения') }}</p>
+
+<p>
+            {{ form.description(size=32, id='user', placeholder='Описание') }}</p>
 <p>
         {{ form.submit(size=10, type='submit') }}</p>
 </form>
