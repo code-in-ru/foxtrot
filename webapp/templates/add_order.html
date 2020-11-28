@@ -1,16 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Sign In</h1>
+    <h1>Черновик подачи заявки</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
-            {{ form.order_name.label }}<br>
-            {{ form.order_name(size=32) }}
+            {{ form.author.label }}<br>
+            {{ form.author(size=32) }}
         </p>
         <p>
-            {{ form.order_type.select }}<br>
-            {{ form.order_type(size=3) }}
+            {{ form.location.label }}<br>
+            {{ form.location(size=32) }}
+        </p>
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}
+        </p>
+        <p>
+            {{ form.task_type.label }}<br>
+            {{ form.task_type(size=3) }}
+        </p>
+        <p>
+            {{ form.due_date.label }}<br>
+            {{ form.due_date(size=32) }}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(size=32) }}
         </p>
         <p>{{ form.submit() }}</p>
     </form>

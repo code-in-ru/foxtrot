@@ -1,9 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField,  SubmitField, SelectField
 from wtforms.validators import DataRequired
 
 
 class AddOrderForm(FlaskForm):
-    order_name = StringField('Выполняемые работы', validators=[DataRequired()])
-    order_type = SelectField("Ordertype", choices=['Требование', 'Заявка'], validators=[DataRequired()])
+    author = StringField('Автор', validators=[DataRequired()])
+    location = StringField('Локация', validators=[DataRequired()])
+    title = StringField('Заголовок', validators=[DataRequired()])
+    task_type = SelectField("Тип задачи", choices=['Требование', 'Заявка'], validators=[DataRequired()])
+    due_date = StringField('Срок выполнения', validators=[DataRequired()])
+    description = StringField('Описание', validators=[DataRequired()])
     submit = SubmitField('Добавить')

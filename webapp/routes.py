@@ -15,11 +15,11 @@ def index():
     return render_template("index.html", title="Главная страница")
 
 
-@webapp.route("/api/")
-@webapp.route("/api/orders")
+@webapp.route("/api", methods=["GET"])
+@webapp.route("/api/orders", methods=["GET"])
 # @webapp.route("/api/<method>", methods=["GET"])
 def orders(method=None):
-    return f"Method {method} API not ready"
+    return {"name": ["apples, oranges"]}
 
 
 @webapp.route("/add-order", methods=["GET", "POST"])
