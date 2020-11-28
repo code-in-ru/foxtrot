@@ -1,13 +1,59 @@
 {% extends "base.html" %}
 <link href="{{ url_for("static", filename="css/main.css") }}" rel="stylesheet">
 {% block content %}
-      <h1>Текущие распоряжения</h1>
-<div id="wrapper">
-<form id="signin" method="post" action="" autocomplete="off" novalidate>
-        {% for i in post %}
-            <p>{{ i }}</p>
-        {% endfor %}
-</form>
-</div>
+    <br>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-xl-2">
+            {% for i in post %}
+                <div class="col">
+                    <div class="card ">
+                        {% if i[8] == "Красный" %}
+                            <div class="card-header bg-danger">
+                                <strong>{{ i[3] }}</strong>
+                            </div>
+                        {% elif i[8] == "Желтый" %}
+                            <div class="card-header bg-warning">
+                                <strong>{{ i[3] }}</strong>
+                            </div>
+                        {% elif i[8] == "Зелёный" %}
+                            <div class="card-header bg-success">
+                                <strong>{{ i[3] }}</strong>
+                            </div>
+                        {% else %}
+                            <div class="card-header">
+                                <strong>{{ i[3] }}</strong>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="card-text">Тип : {{ i[4] }}</p>
+                                    <p class="card-text">Назначил : {{ i[2] }}</p>
+                                    <p class="card-text">Локация : {{ i[10] }}</p>
+                                    <p class="card-text">Состояние : {{ i[9] }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="card-text">Описание : {{ i[7] }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="card-text"><small class="text-muted">Необходимый срок исполнения : {{ i[5] }}</small></p>
+                                    <p class="card-text"><small class="text-muted">Фактический срок исполнения : {{ i[6] }}</small></p>
+                                    <p class="card-text"><small class="text-muted">Создана : {{ i[1] }}</small></p>
+                                </li>
+                                <li class="list-group-item text-right">
+                                    <button class="btn-dark">Переназначить</button>
+                                    <button class="btn-dark">Изменить</button>
+                                    <button class="btn-dark">Закрыть</button>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
