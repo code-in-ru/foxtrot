@@ -3,7 +3,8 @@
 {% block content %}
       <h1>Распорядиться</h1>
     <div class="container">
-<form>{{ form.hidden_tag() }}
+<form method="post" action="">
+    {{ form.hidden_tag() }}
   <div class="form-group">
     <label for="exampleFormControlInput1">Заголовок</label>
       {{ form.title(id='exampleFormControlInput1', placeholder='Заголовок', class="form-control", type="text") }}

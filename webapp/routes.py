@@ -9,7 +9,7 @@ from flask import abort
 import pymongo
 import sqlite3
 import datetime
-
+import random
 
 @webapp.route('/')
 @webapp.route('/index')
@@ -28,18 +28,19 @@ def orders(method=None):
 @webapp.route("/addorder", methods=["GET", "POST"])
 def add_order():
     form = AddOrderForm()
+    users = ['Иванов', 'Петров', 'Сидоров']
     if form.validate_on_submit():
         with sqlite3.connect("data/rosatom") as conn:
             cursor = conn.cursor()
             cursor.execute("""INSERT INTO tasks (datetime, author, title, type, due_date, description, priority, state, 
             location)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);""", (datetime.date.today(), 'Петров', form.title.data,
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);""", (datetime.date.today(), random.choice(users), form.title.data,
                                                      form.task_type.data, form.due_date.data, form.description.data,
                                                      form.priority.data, 0, form.location.data))
             task_id = cursor.lastrowid
             conn.commit()
             flash("Task have id={0}".format(task_id))
-        return redirect("/tasks")
+        return redirect("/list-orders")
     return render_template("add_order.html", title="Добавление ордера", form=form)
 
 
