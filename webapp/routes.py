@@ -1,7 +1,10 @@
 from webapp import webapp
+from webapp.forms import AddOrderForm
 from flask import jsonify
 from flask import request
+from flask import flash
 from flask import render_template
+from flask import redirect
 from flask import abort
 import pymongo
 
@@ -19,10 +22,13 @@ def orders(method=None):
     return f"Method {method} API not ready"
 
 
-@webapp.route("/api/add_order/", methods=["GET"])
+@webapp.route("/add-order", methods=["GET", "POST"])
 def add_order():
-    request_data = request.form
-    return request_data
+    form = AddOrderForm()
+    if form.validate_on_submit():
+        flash('Order name {0} type is {1}'.format(form.order_name.data, form.order_type.data))
+        return redirect("/index")
+    return render_template("add_order.html", title="Добавление ордера", form=form)
 
 
 @webapp.route("/todo", methods=["GET"])
