@@ -8,6 +8,7 @@ from flask import redirect
 from flask import abort
 import pymongo
 import sqlite3
+import datetime
 
 
 @webapp.route('/')
@@ -30,8 +31,11 @@ def add_order():
     if form.validate_on_submit():
         with sqlite3.connect("data/rosatom") as conn:
             cursor = conn.cursor()
-            cursor.execute("""INSERT INTO tasks (author, title, type, description)
-            VALUES (?, ?, ?, ?);""", (form.author.data, form.title.data, form.task_type.data, form.description.data))
+            cursor.execute("""INSERT INTO tasks (datetime, author, title, type, due_date, description, priority, state, 
+            location)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);""", (datetime.date.today(), 'Петров', form.title.data,
+                                                     form.task_type.data, form.due_date.data, form.description.data,
+                                                     form.priority.data, 0, form.location.data))
             task_id = cursor.lastrowid
             conn.commit()
             flash("Task have id={0}".format(task_id))
@@ -43,7 +47,7 @@ def add_order():
 def show_tasks():
     with sqlite3.connect("data/rosatom") as conn:
         cursor = conn.cursor()
-        result = cursor.execute("""SELECT * from tasks WHERE state != 3""").fetchall()
+        result = cursor.execute("""SELECT * from tasks WHERE state != 2""").fetchall()
         return render_template('tasks.html', title='Распоряжения', post=result)
 
 

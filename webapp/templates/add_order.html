@@ -1,27 +1,38 @@
 {% extends "base.html" %}
-<link href="{{ url_for("static", filename="css/main.css") }}" rel="stylesheet">
+
 {% block content %}
       <h1>Распорядиться</h1>
-<div id="wrapper">
-<form id="signin" method="post" action="" autocomplete="off" novalidate>
-        {{ form.hidden_tag() }}
+    <div class="container">
+<form>{{ form.hidden_tag() }}
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Заголовок</label>
+      {{ form.title(id='exampleFormControlInput1', placeholder='Заголовок', class="form-control", type="text") }}
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Тип распоряжения</label>
+      {{ form.task_type(size=3, class="form-control", id="exampleFormControlSelect1", placeholder='Тип распоряжения') }}
 
+  </div>
+    <div class="form-group">
+    <label for="exampleFormControlInput1">Дедлайн</label>
+        {{ form.due_date(id='exampleFormControlInput1', placeholder='Крайняя дата выполнения', type="text", class="form-control") }}
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Описание задачи</label>
+      {{ form.description(id='user', placeholder='Описание', class="form-control") }}
+  </div>
+<div class="form-group">
+    <label for="exampleFormControlSelect1">Приоритет</label>
+    {{ form.priority(id='exampleFormControlSelect1', placeholder='Описание', class="form-control") }}
+  </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Место назначения</label>
+    {{ form.location(id='exampleFormControlInput1', placeholder='Место назначения', type="text", class="form-control") }}
+</div>
+    <div class="form-group">
+    {{ form.submit(id='exampleFormControlSelect1', class="btn btn-dark", type="submit") }}
+</div>
 
-        <p>
-            {{ form.author(size=32, id='user', placeholder='Автор') }}</p>
-
-<p>
-            {{ form.title(size=32, id='user', placeholder='Заголовок') }}</p>
-<p>
-            {{ form.task_type(size=3, id='user', placeholder='Тип распоряжения') }}</p>
-<p>
-
-            {{ form.due_date(size=32, id='user', placeholder='Срок выполнения') }}</p>
-
-<p>
-            {{ form.description(size=32, id='user', placeholder='Описание') }}</p>
-<p>
-        {{ form.submit(size=10, type='submit') }}</p>
 </form>
 </div>
 
