@@ -2,7 +2,7 @@ import sqlite3
 import datetime
 
 
-connection = sqlite3.connect("rosatom")
+connection = sqlite3.connect("data/rosatom.sqlite")
 cursor = connection.cursor()
 
 

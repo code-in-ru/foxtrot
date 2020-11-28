@@ -6,7 +6,7 @@ from flask import flash
 from flask import render_template
 from flask import redirect
 from flask import abort
-import pymongo
+import sqlite3
 
 
 @webapp.route('/')
@@ -19,14 +19,20 @@ def index():
 @webapp.route("/api/orders", methods=["GET"])
 # @webapp.route("/api/<method>", methods=["GET"])
 def orders(method=None):
-    return {"name": ["apples, oranges"]}\
+    return {"name": ["apples, oranges"]}
 
 
 @webapp.route("/addorder", methods=["GET", "POST"])
 def add_order():
     form = AddOrderForm()
     if form.validate_on_submit():
-        flash('Order name {0} type is {1}'.format(form.author.data, form.title.data))
+        with sqlite3.connect("data/rosatom.sqlite") as conn:
+            cursor = conn.cursor()
+            cursor.execute("""INSERT INTO tasks (author, title, type, description)
+            VALUES (?, ?, ?, ?);""", (form.author.data, form.title.data, form.task_type.data, form.description.data))
+            task_id = cursor.lastrowid
+            conn.commit()
+            flash("Task have id={0}".format(task_id))
         return redirect("/")
     return render_template("add_order.html", title="Добавление ордера", form=form)
 
