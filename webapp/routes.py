@@ -19,15 +19,15 @@ def index():
 @webapp.route("/api/orders", methods=["GET"])
 # @webapp.route("/api/<method>", methods=["GET"])
 def orders(method=None):
-    return {"name": ["apples, oranges"]}
+    return {"name": ["apples, oranges"]}\
 
 
-@webapp.route("/add-order", methods=["GET", "POST"])
+@webapp.route("/addorder", methods=["GET", "POST"])
 def add_order():
     form = AddOrderForm()
     if form.validate_on_submit():
-        flash('Order name {0} type is {1}'.format(form.order_name.data, form.order_type.data))
-        return redirect("/index")
+        flash('Order name {0} type is {1}'.format(form.author.data, form.title.data))
+        return redirect("/")
     return render_template("add_order.html", title="Добавление ордера", form=form)
 
 
