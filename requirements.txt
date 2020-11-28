@@ -1,2 +1,5 @@
 vosk~=0.3.15
 pydub~=0.24.1
+flask
+flask-wtf
+wtforms
